@@ -22,6 +22,10 @@ class CategoryRepo:
         except CategoryORM.DoesNotExist:
             raise Exception
 
+    def get_all(self):
+        queryset = CategoryORM.objects.all()
+        return self.convert_queryset_to_list_of_entity(queryset)
+
     def create(self, data):
         data_orm = CategoryORM.objects.create(**data.__dict__)
         return self.convert_to_entity(data_orm)

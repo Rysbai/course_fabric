@@ -4,6 +4,7 @@ media/*
 static/*
 back_static/*
 .idea/*
+.vscode/*
 *.pyc
 .env
 db.sqlite3

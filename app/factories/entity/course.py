@@ -22,5 +22,11 @@ class CourseEntity:
 
 class CourseEntityFactory:
     @staticmethod
-    def get_entity():
+    def create():
         return CourseEntity
+
+
+class CategoryEntityFactory:
+    @staticmethod
+    def create():
+        return CategoryEntity

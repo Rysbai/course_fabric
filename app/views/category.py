@@ -11,11 +11,11 @@ class CategoryListCreateView:
 
     def get(self, *args, **kwargs):
         body = self.get_all_interactor_factory.create().set_params(*args, **kwargs).execute()
-        return body, Status.OK
+        return body.__dict__, Status.OK
 
     def post(self, *args, **kwargs):
         body = self.create_interactor_factory.create().set_params(*args, **kwargs).execute()
-        return body, Status.CREATED
+        return body.__dict__, Status.CREATED
 
 
 class CategoryRetrieveUpdateDeleteView:
