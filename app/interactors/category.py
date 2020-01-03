@@ -12,7 +12,8 @@ class GetAllCategoryInteractor:
 
 
 class CreateCategoryInteractor:
-    def __init__(self, category_repo):
+    def __init__(self, category_entity, category_repo):
+        self.category_entity = category_entity
         self.category_repo = category_repo
     
     def set_params(self, *args, **kwargs):
@@ -20,7 +21,8 @@ class CreateCategoryInteractor:
         return self
     
     def execute(self):
-        return self.category_repo.create(self.data)
+        category = self.category_entity.create(**self.data)
+        return self.category_repo.create(category)
     
 
 class RetrieveCategoryInteractor:
@@ -37,18 +39,20 @@ class RetrieveCategoryInteractor:
 
 
 class UpdateCategoryInteractor:
-    def __init__(self, category_repo):
+    def __init__(self, category_entity, category_repo):
+        self.category_entity = category_entity
         self.category_repo = category_repo
 
     def set_params(self, *args, **kwargs):
+        print(kwargs)
         self.pk = kwargs.get('pk', None)
         self.data = kwargs
         return self
     
     def execute(self):
         self._validate()
-        return self.category_repo.update(self.data)
-
+        category = self.category_entity.create(**self.data)
+        return self.category_repo.update(category)
 
     def _validate(self):
         pass
@@ -60,6 +64,7 @@ class DeleteCategoryInteractor:
     
     def set_params(self, *args, **kwargs):
         self.pk = kwargs.get('pk', None)
+        return self
     
     def execute(self):
         self.category_repo.delete(self.pk)

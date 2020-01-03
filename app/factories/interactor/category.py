@@ -6,6 +6,7 @@ UpdateCategoryInteractor,
 DeleteCategoryInteractor
 )
 from app.factories.repository.category import CategoryRepoFactory
+from app.factories.entity.course import CategoryEntityFactory
 
 
 class GetAllCategoryInteractorFactory:
@@ -20,7 +21,8 @@ class CreateCategoryInteractorFactory:
     @staticmethod
     def create():
         return CreateCategoryInteractor(
-            category_repo=CategoryRepoFactory.create()
+            category_repo=CategoryRepoFactory.create(),
+            category_entity=CategoryEntityFactory.create()
         )
 
 
@@ -36,7 +38,8 @@ class UpdateCategoryInteractorFactory:
     @staticmethod
     def create():
         return UpdateCategoryInteractor(
-            category_repo=CategoryRepoFactory.create()
+            category_repo=CategoryRepoFactory.create(),
+            category_entity=CategoryEntityFactory.create()
         )
 
 

@@ -1,4 +1,5 @@
 from .status_codes import Status
+from app.serializers.category import CategorySerializer
 
 
 class CategoryListCreateView:
@@ -11,11 +12,11 @@ class CategoryListCreateView:
 
     def get(self, *args, **kwargs):
         body = self.get_all_interactor_factory.create().set_params(*args, **kwargs).execute()
-        return body.__dict__, Status.OK
+        return CategorySerializer.serialize_many(body), Status.OK
 
     def post(self, *args, **kwargs):
         body = self.create_interactor_factory.create().set_params(*args, **kwargs).execute()
-        return body.__dict__, Status.CREATED
+        return CategorySerializer.serialize_entity(body), Status.CREATED
 
 
 class CategoryRetrieveUpdateDeleteView:
@@ -29,14 +30,14 @@ class CategoryRetrieveUpdateDeleteView:
         self.delete_interactor_factory = delete_interactor_factory
 
     def get(self, *args, **kwargs):
+        print('Im here')
         body = self.retrieve_interactor_factory.create().set_params(*args, **kwargs).execute()
-        return body, Status.OK
+        return CategorySerializer.serialize_entity(body), Status.OK
 
     def put(self, *args, **kwargs):
         body = self.update_interactor_factory.create().set_params(*args, **kwargs).execute()
-        return body, Status.CREATED
+        return CategorySerializer.serialize_entity(body), Status.CREATED
 
     def delete(self, *args, **kwargs):
-        body = self.delete_interactor_factory.create().set_params(*args, **kwargs).execute()
-        return body, Status.NO_CONTENT
-
+        self.delete_interactor_factory.create().set_params(*args, **kwargs).execute()
+        return None, Status.NO_CONTENT

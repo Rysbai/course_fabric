@@ -6,7 +6,7 @@ class CategoryRepo:
         self.entity = entity
 
     def convert_to_entity(self, data_orm):
-        return self.entity(**data_orm.__dict__)
+        return self.entity.create(**data_orm.__dict__)
 
     def convert_queryset_to_list_of_entity(self, queryset):
         data = []
@@ -31,8 +31,9 @@ class CategoryRepo:
         return self.convert_to_entity(data_orm)
 
     def update(self, data):
-        data_orm = CategoryORM.objects.update(**data.__dict__)
-        return self.convert_to_entity(data_orm)
+        queryset = CategoryORM.objects.filter(pk=data.id)
+        queryset.update(**data.__dict__)
+        return self.convert_to_entity(queryset.first())
 
     def delete(self, id):
         CategoryORM.objects.filter(id=id).delete()
@@ -44,7 +45,7 @@ class CourseRepo:
         self.entity = entity
 
     def convert_to_entity(self, data_orm):
-        return self.entity(**data_orm.__dict__)
+        return self.entity.create(**data_orm.__dict__)
 
     def convert_queryset_to_list_of_entity(self, queryset):
         data = []

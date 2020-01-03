@@ -3,8 +3,8 @@ from app.entities.course import Category, Course
 
 class CategoryEntity:
     @staticmethod
-    def create(id, name):
-        Category(
+    def create(name, id=None, *args, **kwargs):
+        return Category(
             id=id,
             name=name
         )
@@ -12,8 +12,8 @@ class CategoryEntity:
 
 class CourseEntity:
     @staticmethod
-    def create(id, category, name):
-        Course(
+    def create(category, name, id=None, *args, **kwargs):
+        return Course(
             id=id,
             category=category,
             name=name
